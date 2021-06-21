@@ -1,32 +1,21 @@
-import java.util.LinkedList;
+import java.util.*;
 
 /**
  * Class representing a Towers of Hanoi puzzle.
  */
 public class HanoiModel {
-
   /**
-   * List representing the leftmost pole.
-   */  
-  private LinkedList<Integer> pole1;
-  
-  /**
-   * List representing the center pole.
-   */  
-  private LinkedList<Integer> pole2;
-  
-  /**
-   * List representing the rightmost pole.
-   */  
-  private LinkedList<Integer> pole3;
+   * ArrayList of LinkedList objects representing the poles.
+   */
+  private ArrayList<LinkedList<Integer>> poles = new ArrayList<>(4);
 
   /**
    * Create the puzzle.
    */
   public HanoiModel() {
-    pole1 = new LinkedList<>();
-    pole2 = new LinkedList<>();
-    pole3 = new LinkedList<>();
+    for(int i = 0; i < 4; i++) {
+      poles.add(new LinkedList<Integer>());
+    }
   }
 
   /**
@@ -38,19 +27,7 @@ public class HanoiModel {
    * @return LinkedList with the discs for the specified pole.
    */
   public LinkedList<Integer> getPole(int source) {
-    LinkedList<Integer> modelPole = null;
-    switch(source) {
-      case 1:
-        modelPole = pole1;
-        break;
-      case 2:
-        modelPole = pole2;
-        break;
-      case 3:
-        modelPole = pole3;
-        break;
-    }
-    return new LinkedList<Integer>(modelPole);
+    return new LinkedList<Integer>(poles.get(source));
   }
 
   /**
@@ -60,12 +37,12 @@ public class HanoiModel {
    * number of discs in the puzzle.
    */
   public void setNumDiscs(int numDiscs) {
-    pole1.clear();
-    pole2.clear();
-    pole3.clear();
+    for(int i = 1; i < 4; i++) {
+      poles.get(i).clear();
+    }
 
     for(int i = numDiscs; i >= 1; i--) {
-      pole1.addFirst(i);
+      poles.get(1).addFirst(i);
     }
   }
 
@@ -82,41 +59,19 @@ public class HanoiModel {
       System.err.printf("Illegal source and / or dest: %d %d\n", source, dest);
       return false;
     } else {
-      LinkedList<Integer> sourcePole = null;
-      switch (source) {
-      case 1:
-        sourcePole = pole1;
-        break;
-      case 2:
-        sourcePole = pole2;
-        break;
-      case 3:
-        sourcePole = pole3;
-      }
-      LinkedList<Integer> destPole = null;
-      switch (dest) {
-      case 1:
-        destPole = pole1;
-        break;
-      case 2:
-        destPole = pole2;
-        break;
-      case 3:
-        destPole = pole3;
-      }
-
-      if(sourcePole.isEmpty()) {
+      if(poles.get(source).isEmpty()) {
         System.err.printf("Source pole %d is empty.\n", source);
         return false;
-      } else if (!destPole.isEmpty() && (sourcePole.getFirst() > 
-        destPole.getFirst())) {
+      } else if (!poles.get(dest).isEmpty() && (poles.get(source).getFirst() > 
+        poles.get(dest).getFirst())) {
 
         System.err.printf("Cannot move disc %d on top of disc %d\n",
-                          sourcePole.getFirst(), destPole.getFirst());
+                          poles.get(source).getFirst(), 
+                          poles.get(dest).getFirst());
         return false;
       }
 
-      destPole.addFirst(sourcePole.removeFirst());
+      poles.get(dest).addFirst(poles.get(source).removeFirst());
     }
 
     return true;
