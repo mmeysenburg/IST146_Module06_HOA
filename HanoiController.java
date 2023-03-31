@@ -1,5 +1,5 @@
 /**
- * Controller class for IST 146 Module 6 HOA: Towers of Hanoi.
+ * Controller class for CMP 146 Module 6 HOA: Towers of Hanoi.
  */
 public class HanoiController {
   /** User interface object. */
