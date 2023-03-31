@@ -2,7 +2,7 @@ import java.util.*;
 
 /**
  * Class representing the console-based user interface for the
- * IST 146 Module 6 HOA: Towers of Hanoi.
+ * CMP 146 Module 6 HOA: Towers of Hanoi.
  */
 public class HanoiView {
 
@@ -87,7 +87,7 @@ public class HanoiView {
    */
   public void displayWelcome() {
     System.out.println("=================================================");
-    System.out.println("Welcome to the IST 146 Towers of Hanoi Simulator!");
+    System.out.println("Welcome to the CMP 146 Towers of Hanoi Simulator!");
     System.out.println("=================================================\n\n");
   }
 
